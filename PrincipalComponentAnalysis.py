@@ -165,8 +165,10 @@ class PrincipalComponentAnalysis:
 
         # Find the index of the minimum distance, which corresponds to the recognized person/class
         minimum_distance_index = np.argmin(distances)
+
         # Retrieve the name of the recognized person
         recognized_person_name = self.person_names[minimum_distance_index]
+
         return recognized_person_name
 
     def new_cord_for_image(self, image):

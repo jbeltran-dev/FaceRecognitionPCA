@@ -28,7 +28,7 @@ class ImageMatrixConverter:
     def get_matrix(self):
         """
         Get an image matrix (each image will be a column matrix)
-        :return: Matrix with all images as a coSlumn
+        :return: Matrix with all images as a column
         """
 
         # Because each image must be added as a column in a matrix
@@ -64,11 +64,9 @@ class ImageMatrixConverter:
 
         # Load image in grayscale
         gray_image = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
-        #La Ecualización de Histograma es una técnica de procesamiento de imágenes utilizada para mejorar el contraste de una imagen
-        imagen_ecualizada = cv2.equalizeHist(gray_image)
         
         # Resize the grayscale image
-        resized_image = cv2.resize(imagen_ecualizada, (self.image_width, self.image_height))
+        resized_image = cv2.resize(gray_image, (self.image_width, self.image_height))
 
         return resized_image
 
