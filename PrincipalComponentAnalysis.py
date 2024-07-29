@@ -143,11 +143,11 @@ class PrincipalComponentAnalysis:
         distances = []
 
         trainer_number_image = self.required_images_number
-        
+
         # Iterate over each person/class
         for person_index in range(total_classes):
-            
-            # Extract images corresponding to the current class            
+
+            # Extract images corresponding to the current class
             start_index = person_index * trainer_number_image
             end_index = (start_index + trainer_number_image - 1)
             images_for_person = self.new_coordinates[:, start_index:end_index]
@@ -160,14 +160,23 @@ class PrincipalComponentAnalysis:
 
             # Store the calculated distance
             distances.append(distance_to_mean)
-            
+
             print("Person : " + str(person_index) + " : Distance = " + str(distance_to_mean) + " ")
 
-        # Find the index of the minimum distance, which corresponds to the recognized person/class
-        minimum_distance_index = np.argmin(distances)
-        # Retrieve the name of the recognized person
-        recognized_person_name = self.person_names[minimum_distance_index]
-        return recognized_person_name
+        minimum_distance = min(distances)
+        maximum_distance = max(distances)
+        difference = maximum_distance - minimum_distance
 
-    def new_cord_for_image(self, image):
-        return np.dot(image, self.new_bases)
+        minimum_distance_index = np.argmin(distances)
+        recognized_person_name = self.person_names[minimum_distance_index]
+
+        print(f"Recognized as: {recognized_person_name}")
+        print(f"Difference was: {difference}")
+
+        # Find the index of the minimum distance, which corresponds to the recognized person/class
+        if difference > 910:
+            person_name = recognized_person_name
+        else:
+            person_name = "Unknown"
+
+        return person_name
